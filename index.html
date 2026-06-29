@@ -127,7 +127,7 @@
     <h1>ヴェールブルー</h1>
     <div class="sub">経営コンサルティング ｜ 営業・人事・財務・AI</div>
     <div class="tag">VERT BLEU.Inc　仁淀ブルーに由来する社名　2026</div>
-    <div class="credit">Video: Dan Cristian Pădureț / Pexels</div>
+    <div class="credit">Video: Ambient_Nature_Atmosphere / Pexels</div>
   </section>
 
   <!-- 2. ミッション（1メッセージ） -->
@@ -257,6 +257,13 @@
     document.documentElement.classList.add('shot');
   }
   show(params.has('slide')?parseInt(params.get('slide'),10)||0:0);
+  // 表紙動画: 自動再生ブロック対策で明示的に再生（ミュート＋インライン）
+  const cv=document.querySelector('.cover-video');
+  if(cv){
+    cv.muted=true; cv.play().catch(()=>{});
+    document.addEventListener('click',()=>cv.play().catch(()=>{}),{once:true});
+    document.addEventListener('keydown',()=>cv.play().catch(()=>{}),{once:true});
+  }
 </script>
 </body>
 </html>
