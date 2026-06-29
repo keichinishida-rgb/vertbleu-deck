@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ヴェールブルー｜会社紹介</title>
+<style>
+  :root{
+    --blue:#0e92b8;        /* 仁淀ブルー（緑×青）アクセント */
+    --blue-deep:#0b6e8c;
+    --ink:#101418;
+    --gray:#c4ccd6;
+    --bg:#ffffff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{height:100%;background:#0a0c0f;}
+  body{
+    font-family:"Hiragino Kaku Gothic ProN","Meiryo","メイリオ",sans-serif;
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  /* ===== Deck mechanics ===== */
+  .deck{position:relative;width:100vw;height:100vh;overflow:hidden;}
+  .slide{
+    position:absolute;inset:0;
+    display:none;
+    flex-direction:column;
+    background:var(--bg);
+    padding:7vh 8vw;
+    opacity:0;
+    transition:opacity .35s ease;
+  }
+  .slide.active{display:flex;opacity:1;}
+  .slide.center{justify-content:center;align-items:flex-start;}
+  .slide.mid{justify-content:center;}
+
+  /* ===== Typography ===== */
+  .kicker{font-size:1.05rem;letter-spacing:.18em;color:var(--blue);font-weight:700;margin-bottom:1.6vh;}
+  h1{font-size:4.6rem;line-height:1.18;font-weight:800;letter-spacing:.01em;}
+  h2{font-size:3.2rem;line-height:1.22;font-weight:800;}
+  .lead{font-size:1.5rem;line-height:1.7;color:#3a424c;font-weight:500;max-width:46ch;}
+  .accent{color:var(--blue);}
+  .mega{font-size:13rem;line-height:.95;font-weight:900;color:var(--blue);letter-spacing:-.02em;}
+  .unit{font-size:3rem;font-weight:800;color:var(--ink);}
+  .ph{color:#9aa3ad;font-weight:500;}  /* placeholder マーカー */
+
+  /* ===== Layout helpers ===== */
+  .row{display:flex;gap:6vw;align-items:center;height:100%;}
+  .col{flex:1;}
+  .arrow{color:var(--blue);font-size:2.4rem;font-weight:900;}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:2.4vw;width:100%;}
+  .card{border-top:4px solid var(--blue);padding:2.4vh 0 0;}
+  .card .n{font-size:1rem;color:var(--blue);font-weight:800;letter-spacing:.1em;}
+  .card h3{font-size:1.7rem;margin:1vh 0 1.2vh;font-weight:800;}
+  .card p{font-size:1.12rem;line-height:1.6;color:#48515b;}
+
+  .statline{display:flex;gap:7vw;align-items:flex-end;margin-top:2vh;}
+  .stat .big{font-size:6.5rem;font-weight:900;color:var(--blue);line-height:1;}
+  .stat .lbl{font-size:1.15rem;color:#48515b;margin-top:1vh;font-weight:600;}
+
+  .quote{font-size:2.6rem;line-height:1.5;font-weight:800;max-width:24ch;}
+  .quote .accent{color:var(--blue);}
+  .who{font-size:1.15rem;color:#48515b;margin-top:3vh;font-weight:600;}
+
+  .flow{display:flex;align-items:center;gap:1.5vw;width:100%;margin-top:2vh;}
+  .step{flex:1;background:#f4f7fb;border-radius:14px;padding:3vh 1.6vw;text-align:center;}
+  .step .s{color:var(--blue);font-weight:800;font-size:.95rem;letter-spacing:.1em;}
+  .step h4{font-size:1.45rem;margin-top:1vh;font-weight:800;}
+  .step p{font-size:1rem;color:#5a626c;margin-top:.8vh;line-height:1.5;}
+  .flow .sep{color:var(--blue);font-size:2rem;font-weight:900;}
+
+  table.spec{border-collapse:collapse;font-size:1.4rem;}
+  table.spec td{padding:1.5vh 2vw 1.5vh 0;border-bottom:1px solid #e6eaef;vertical-align:top;}
+  table.spec td.k{color:var(--blue);font-weight:800;white-space:nowrap;padding-right:4vw;}
+  table.spec td.v{color:#2a323c;font-weight:600;}
+
+  /* ===== Bridge (目次) ===== */
+  .bridge{background:#0b1320;color:#fff;}
+  .bridge ol{list-style:none;display:flex;flex-direction:column;gap:2.2vh;}
+  .bridge li{font-size:2.1rem;font-weight:700;color:#3d495c;display:flex;gap:1.2vw;align-items:baseline;}
+  .bridge li.on{color:#fff;}
+  .bridge li .no{font-size:1.1rem;color:var(--blue);font-weight:800;width:2.4rem;}
+
+  /* ===== Cover & close ===== */
+  .cover{background:linear-gradient(135deg,#0f8a7e 0%,#0e92b8 55%,#1d7fd0 100%);color:#fff;justify-content:center;}
+  .cover h1{font-size:5.4rem;color:#fff;}
+  .cover .kicker{color:#bcd8ff;}
+  .cover .sub{font-size:1.5rem;color:#dbeaff;margin-top:2.5vh;font-weight:500;}
+  .cover .tag{position:absolute;bottom:6vh;left:8vw;font-size:1.1rem;color:#bcd8ff;letter-spacing:.1em;}
+
+  .close{background:#0b1320;color:#fff;justify-content:center;}
+  .close h2{font-size:4rem;color:#fff;}
+  .close h2 .accent{color:#6fb0ff;}
+  .close .sub{font-size:1.4rem;color:#aab6c8;margin-top:3vh;}
+
+  /* ===== Chrome ===== */
+  .pager{position:absolute;bottom:3.5vh;right:8vw;font-size:.95rem;color:#9aa3ad;letter-spacing:.1em;z-index:10;}
+  .slide.cover .pager,.slide.close .pager,.slide.bridge .pager{color:rgba(255,255,255,.5);}
+  .brandmark{position:absolute;top:5vh;left:8vw;font-size:1rem;font-weight:800;letter-spacing:.12em;color:var(--blue);z-index:10;}
+  .slide.cover .brandmark,.slide.close .brandmark,.slide.bridge .brandmark{color:#fff;}
+  .progress{position:absolute;top:0;left:0;height:4px;background:var(--blue);z-index:20;transition:width .35s ease;}
+  .hint{position:absolute;bottom:3.5vh;left:8vw;font-size:.85rem;color:#b8c0c9;z-index:10;}
+  .slide.cover .hint,.slide.close .hint,.slide.bridge .hint{color:rgba(255,255,255,.45);}
+  /* 書き出しモード: ナビ系UIを隠す */
+  html.shot .pager,html.shot .progress,html.shot .hint{display:none!important;}
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+  <!-- 1. COVER -->
+  <section class="slide cover">
+    <div class="kicker">COMPANY PROFILE</div>
+    <h1>ヴェールブルー</h1>
+    <div class="sub">経営コンサルティング ｜ 営業・人事・財務・AI</div>
+    <div class="tag">VERT BLEU.Inc　仁淀ブルーに由来する社名　2026</div>
+  </section>
+
+  <!-- 2. ミッション（1メッセージ） -->
+  <section class="slide center">
+    <div class="brandmark">VERT BLEU</div>
+    <div class="kicker">MISSION</div>
+    <h1>世界を、<br>もっと<span class="accent">オープン</span>に。</h1>
+    <p class="lead" style="margin-top:3vh;"><span class="ph">［任意：背景・込めた想いを一言。面に書かず口頭で補足してもOK］</span></p>
+  </section>
+
+  <!-- 3. 私たちについて -->
+  <section class="slide center">
+    <div class="brandmark">VERT BLEU</div>
+    <div class="kicker">ABOUT US</div>
+    <h2>経営者を、<br>ひとりにしない。</h2>
+    <p class="lead" style="margin-top:3vh;">営業・人事・財務——経営の主戦場を横断し、<br>中小企業・スタートアップの経営者に伴走する経営コンサルティング。</p>
+  </section>
+
+  <!-- 4. BRIDGE（目次） -->
+  <section class="slide bridge">
+    <div class="brandmark">VERT BLEU</div>
+    <ol>
+      <li class="on"><span class="no">01</span>事業内容</li>
+      <li><span class="no">02</span>私たちの強み</li>
+      <li><span class="no">03</span>創業者のトラックレコード</li>
+      <li><span class="no">04</span>大切にしている価値観</li>
+      <li><span class="no">05</span>会社概要</li>
+    </ol>
+  </section>
+
+  <!-- 5. 事業内容（3本柱） -->
+  <section class="slide center">
+    <div class="brandmark">VERT BLEU</div>
+    <div class="kicker">01　事業内容</div>
+    <h2 style="margin-bottom:4vh;">経営の主戦場を、横断する</h2>
+    <div class="grid3" style="grid-template-columns:repeat(4,1fr);gap:1.8vw;">
+      <div class="card"><div class="n">DOMAIN 01</div><h3>営業</h3><p>戦略から仕組み化まで、売上をつくる現場を支える。</p></div>
+      <div class="card"><div class="n">DOMAIN 02</div><h3>人事（HR）</h3><p>採用・育成・組織開発で、人と組織の力を引き出す。</p></div>
+      <div class="card"><div class="n">DOMAIN 03</div><h3>財務</h3><p>数字を経営の言葉に。お金の流れを最適化する。</p></div>
+      <div class="card"><div class="n">DOMAIN 04</div><h3>AI活用</h3><p>3領域すべてにAIを掛け合わせ、経営を加速する。</p></div>
+    </div>
+  </section>
+
+  <!-- 6. 私たちの強み（1メッセージ） -->
+  <section class="slide center">
+    <div class="brandmark">VERT BLEU</div>
+    <div class="kicker">02　私たちの強み</div>
+    <h2>経営者を、<br><span class="accent">ボッチにしない。</span></h2>
+    <p class="lead" style="margin-top:3vh;">業種を問わず、経営者の隣で人・モノ・カネを束ねる。<br>出会ったその日から、フラットな関係で。</p>
+  </section>
+
+  <!-- 7. 数字でみるヴェールブルー（3点） -->
+  <section class="slide center">
+    <div class="brandmark">VERT BLEU</div>
+    <div class="kicker">03　創業者のトラックレコード</div>
+    <h2 style="margin-bottom:2vh;">伴走の、結果</h2>
+    <div class="statline">
+      <div class="stat"><div class="big">95<span style="font-size:2.6rem;">%</span></div><div class="lbl">クライアントの<br>ビジョン達成率</div></div>
+      <div class="stat"><div class="big">98<span style="font-size:2.6rem;">%</span></div><div class="lbl">支援先の<br>業績向上率</div></div>
+      <div class="stat"><div class="big">100<span style="font-size:2.6rem;">%</span></div><div class="lbl">経営者との<br>"オトモダチ"関係率</div></div>
+    </div>
+    <p style="font-size:.95rem;color:#9aa3ad;margin-top:3.5vh;font-weight:600;">※ 創業者が前身事業（H&amp;Relations Japan／現在は消滅）で残した実績です。</p>
+  </section>
+
+  <!-- 8. 大切にしている価値観（3点） -->
+  <section class="slide center">
+    <div class="brandmark">VERT BLEU</div>
+    <div class="kicker">04　大切にしている価値観</div>
+    <h2 style="margin-bottom:5vh;">3つの指針</h2>
+    <div class="grid3">
+      <div class="card"><div class="n">敬天愛人　KEITEN-AIJIN</div><h3>天を敬い、人を愛する</h3><p>私心を離れ、関わる人とその先の社会のために働く。</p></div>
+      <div class="card"><div class="n">良心　RYOSHIN</div><h3>良心に、背かない</h3><p>誰も見ていないところでこそ、心に恥じない仕事を。</p></div>
+      <div class="card"><div class="n">明珠在掌　MEIJU-ZAISHO</div><h3>価値は、いま掌に</h3><p>外に求めず、いま手にしているものの中に価値を見いだす。</p></div>
+    </div>
+  </section>
+
+  <!-- 9. 会社概要 -->
+  <section class="slide center">
+    <div class="brandmark">VERT BLEU</div>
+    <div class="kicker">05　会社概要</div>
+    <table class="spec" style="margin-top:1vh;">
+      <tr><td class="k">会社名</td><td class="v">VERT BLEU.Inc（ヴェールブルー）</td></tr>
+      <tr><td class="k">設立</td><td class="v">2026年5月22日</td></tr>
+      <tr><td class="k">代表者</td><td class="v">西田 敬一</td></tr>
+      <tr><td class="k">所在地</td><td class="v">三重県桑名市大谷田</td></tr>
+      <tr><td class="k">資本金</td><td class="v">300万円</td></tr>
+      <tr><td class="k">事業内容</td><td class="v">経営コンサルティング（営業・人事・財務）／AI活用支援</td></tr>
+    </table>
+  </section>
+
+  <!-- 10. CLOSE -->
+  <section class="slide close">
+    <div class="brandmark">VERT BLEU</div>
+    <div class="kicker" style="color:#6fb0ff;">VERT BLEU</div>
+    <h2>これからも、<br>世界を<span class="accent">オープン</span>に。</h2>
+    <div class="sub">keichi.nishida@gmail.com　／　keichinishida-rgb.github.io/vertbleu-cc</div>
+  </section>
+
+</div>
+
+<div class="progress" id="progress"></div>
+<div class="pager" id="pager"></div>
+<div class="hint">← → / Space でめくる</div>
+
+<script>
+  const slides=[...document.querySelectorAll('.slide')];
+  let i=0;
+  const pager=document.getElementById('pager');
+  const prog=document.getElementById('progress');
+  function show(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+    pager.textContent=String(i+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');
+    prog.style.width=((i+1)/slides.length*100)+'%';
+  }
+  function next(){show(i+1);} function prev(){show(i-1);}
+  document.addEventListener('keydown',e=>{
+    if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();next();}
+    if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();prev();}
+    if(e.key==='Home')show(0); if(e.key==='End')show(slides.length-1);
+  });
+  document.getElementById('deck').addEventListener('click',e=>{
+    const x=e.clientX/window.innerWidth; x>0.35?next():prev();
+  });
+  // 静止画/PDF書き出し用: ?slide=N で特定スライド表示、?shot でクロームUI非表示
+  const params=new URLSearchParams(location.search);
+  if(params.has('shot')){
+    document.documentElement.classList.add('shot');
+  }
+  show(params.has('slide')?parseInt(params.get('slide'),10)||0:0);
+</script>
+</body>
+</html>
