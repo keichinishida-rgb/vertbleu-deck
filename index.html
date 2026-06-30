@@ -82,7 +82,13 @@
   .bridge li .no{font-size:1.1rem;color:var(--blue);font-weight:800;width:2.4rem;}
 
   /* ===== Cover & close ===== */
-  .cover{background:linear-gradient(135deg,#0f8a7e 0%,#0e92b8 55%,#1d7fd0 100%);color:#fff;justify-content:center;}
+  .cover{
+    background:
+      linear-gradient(115deg, rgba(10,90,115,.88) 0%, rgba(14,146,184,.62) 50%, rgba(29,127,208,.40) 100%),
+      url("assets/niyodo-blue-water.jpg") center/cover no-repeat;
+    color:#fff;justify-content:center;
+  }
+  .cover .credit{position:absolute;bottom:6vh;right:8vw;font-size:.8rem;color:rgba(255,255,255,.6);letter-spacing:.05em;z-index:10;}
   .cover h1{font-size:5.4rem;color:#fff;}
   .cover .kicker{color:#bcd8ff;}
   .cover .sub{font-size:1.5rem;color:#dbeaff;margin-top:2.5vh;font-weight:500;}
@@ -114,6 +120,7 @@
     <h1>ヴェールブルー</h1>
     <div class="sub">経営コンサルティング ｜ 営業・人事・財務・AI</div>
     <div class="tag">VERT BLEU.Inc　仁淀ブルーに由来する社名　2026</div>
+    <div class="credit">Photo: 一只猫的橘 / Unsplash</div>
   </section>
 
   <!-- 2. ミッション（1メッセージ） -->
