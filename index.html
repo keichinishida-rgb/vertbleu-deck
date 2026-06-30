@@ -141,6 +141,15 @@
     .slide.photo .img-bg{animation:none;}
     .slide.photo.active .kicker,.slide.photo.active h2,.slide.photo.active .lead{animation:none;}
   }
+  /* 写真スライド上の アクセント色・カード（指針など）を暗背景用に */
+  .slide.photo .accent{color:#74d6e6;}
+  .slide.photo .img-tint.forest-deep{background:linear-gradient(180deg, rgba(6,33,26,.80) 0%, rgba(7,28,30,.86) 100%);}
+  .slide.photo .card{border-top-color:#a9e3cb;}
+  .slide.photo .card .n{color:#a9e3cb;}
+  .slide.photo .card h3{color:#fff;}
+  .slide.photo .card p{color:rgba(255,255,255,.86);}
+  .slide.photo.active .card{animation:fadeUp 1.1s ease-out .3s both;}
+  html.shot .slide.photo .card{animation:none;opacity:1;transform:none;filter:none;}
   .cover h1{font-size:5.4rem;color:#fff;}
   .cover .kicker{color:#bcd8ff;}
   .cover .sub{font-size:1.5rem;color:#dbeaff;margin-top:2.5vh;font-weight:500;}
@@ -217,7 +226,9 @@
   </section>
 
   <!-- 6. 私たちの強み（1メッセージ） -->
-  <section class="slide center">
+  <section class="slide center photo">
+    <div class="img-bg" style="background-image:url('assets/forest-shrine.jpg')"></div>
+    <div class="img-tint forest"></div>
     <div class="brandmark">VERT BLEU</div>
     <div class="kicker">02　私たちの強み</div>
     <h2>経営者を、<br><span class="accent">ボッチにしない。</span></h2>
@@ -238,7 +249,9 @@
   </section>
 
   <!-- 8. 大切にしている価値観（3点） -->
-  <section class="slide center">
+  <section class="slide center photo">
+    <div class="img-bg" style="background-image:url('assets/forest-shrine.jpg')"></div>
+    <div class="img-tint forest-deep"></div>
     <div class="brandmark">VERT BLEU</div>
     <div class="kicker">04　大切にしている価値観</div>
     <h2 style="margin-bottom:5vh;">3つの指針</h2>
