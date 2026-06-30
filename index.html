@@ -95,18 +95,23 @@
   .cover .kicker,.cover h1,.cover .sub,.cover .tag{position:relative;z-index:3;}
   .cover h1.wordmark{font-size:6.4rem;font-weight:800;letter-spacing:.09em;line-height:1;}
   .cover .wordmark .inc{font-size:.34em;font-weight:400;letter-spacing:.05em;opacity:.82;}
-  /* 社名: 最初うっすら・ぼけて揺れている → だんだんハッキリ結像する（水面から像が結ぶように） */
+  /* 社名がゆっくり画面に姿を現す登場アニメ（水面から像が結ぶように） */
   .cover .wordmark{opacity:0;}
-  .cover.active .wordmark{animation:wordmarkResolve 5.4s cubic-bezier(.45,.05,.2,1) forwards;}
-  @keyframes wordmarkResolve{
-    0%{opacity:.40;filter:blur(7px);transform:translateY(5px) skewX(-1.6deg);letter-spacing:.30em;}
-    22%{opacity:.46;filter:blur(8px);transform:translateY(-4px) skewX(1.4deg);}
-    44%{opacity:.54;filter:blur(6px);transform:translateY(4px) skewX(-1.1deg);}
-    66%{opacity:.70;filter:blur(3.4px);transform:translateY(-2px) skewX(.5deg);letter-spacing:.18em;}
-    100%{opacity:1;filter:blur(0);transform:translateY(0) skewX(0deg);letter-spacing:.09em;}
+  .cover.active .wordmark{animation:wordmarkReveal 4.2s cubic-bezier(.19,.6,.22,1) forwards;}
+  @keyframes wordmarkReveal{
+    0%{opacity:0;filter:blur(18px);transform:translateY(20px) scale(1.05);letter-spacing:.32em;}
+    55%{opacity:1;}
+    100%{opacity:1;filter:blur(0);transform:translateY(0) scale(1);letter-spacing:.09em;}
   }
   html.shot .cover .wordmark{opacity:1;animation:none;filter:none;transform:none;}
   @media (prefers-reduced-motion: reduce){.cover.active .wordmark{animation:none;}.cover .wordmark{opacity:1;}}
+  /* ロゴ完成後: うっすら白文字をぼかして、ゆらゆら揺れる定常モーション（水面の映りのように） */
+  .cover .wordmark.settled{opacity:.58;filter:blur(2px);
+    transition:opacity 1.6s ease, filter 1.6s ease;
+    animation:wordmarkSway 5.5s ease-in-out infinite alternate;}
+  @keyframes wordmarkSway{from{transform:translateY(0) skewX(0deg);}to{transform:translateY(3px) skewX(-1.1deg);}}
+  @media (prefers-reduced-motion: reduce){.cover .wordmark.settled{animation:none;}}
+  html.shot .cover .wordmark.settled{opacity:1;filter:none;animation:none;transition:none;}
   .cover .credit{position:absolute;bottom:6vh;right:8vw;font-size:.8rem;color:rgba(255,255,255,.6);letter-spacing:.05em;z-index:3;}
   @keyframes coverSway{
     from{transform:scale(1.07) translate(-1%,-0.6%);}
@@ -300,11 +305,16 @@
   let i=0;
   const pager=document.getElementById('pager');
   const prog=document.getElementById('progress');
+  const wm=document.querySelector('.cover .wordmark');
+  // ロゴの登場アニメ(wordmarkReveal)が終わったら、うっすら揺れる状態へ
+  if(wm){ wm.addEventListener('animationend',e=>{ if(e.animationName==='wordmarkReveal') wm.classList.add('settled'); }); }
   function show(n){
     i=Math.max(0,Math.min(slides.length-1,n));
     slides.forEach((s,k)=>s.classList.toggle('active',k===i));
     pager.textContent=String(i+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');
     prog.style.width=((i+1)/slides.length*100)+'%';
+    // 表紙に戻ったら一旦リセットして、再び登場→揺れる演出を流す
+    if(wm && i===0) wm.classList.remove('settled');
   }
   function next(){show(i+1);} function prev(){show(i-1);}
   document.addEventListener('keydown',e=>{
