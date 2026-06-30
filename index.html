@@ -105,6 +105,13 @@
   }
   html.shot .cover .wordmark{opacity:1;animation:none;filter:none;transform:none;}
   @media (prefers-reduced-motion: reduce){.cover.active .wordmark{animation:none;}.cover .wordmark{opacity:1;}}
+  /* ロゴ完成後: うっすら白文字をぼかして、ゆらゆら揺れる定常モーション（水面の映りのように） */
+  .cover .wordmark.settled{opacity:.58;filter:blur(2px);
+    transition:opacity 1.6s ease, filter 1.6s ease;
+    animation:wordmarkSway 5.5s ease-in-out infinite alternate;}
+  @keyframes wordmarkSway{from{transform:translateY(0) skewX(0deg);}to{transform:translateY(3px) skewX(-1.1deg);}}
+  @media (prefers-reduced-motion: reduce){.cover .wordmark.settled{animation:none;}}
+  html.shot .cover .wordmark.settled{opacity:1;filter:none;animation:none;transition:none;}
   .cover .credit{position:absolute;bottom:6vh;right:8vw;font-size:.8rem;color:rgba(255,255,255,.6);letter-spacing:.05em;z-index:3;}
   @keyframes coverSway{
     from{transform:scale(1.07) translate(-1%,-0.6%);}
@@ -298,11 +305,16 @@
   let i=0;
   const pager=document.getElementById('pager');
   const prog=document.getElementById('progress');
+  const wm=document.querySelector('.cover .wordmark');
+  // ロゴの登場アニメ(wordmarkReveal)が終わったら、うっすら揺れる状態へ
+  if(wm){ wm.addEventListener('animationend',e=>{ if(e.animationName==='wordmarkReveal') wm.classList.add('settled'); }); }
   function show(n){
     i=Math.max(0,Math.min(slides.length-1,n));
     slides.forEach((s,k)=>s.classList.toggle('active',k===i));
     pager.textContent=String(i+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');
     prog.style.width=((i+1)/slides.length*100)+'%';
+    // 表紙に戻ったら一旦リセットして、再び登場→揺れる演出を流す
+    if(wm && i===0) wm.classList.remove('settled');
   }
   function next(){show(i+1);} function prev(){show(i-1);}
   document.addEventListener('keydown',e=>{
