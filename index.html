@@ -118,6 +118,29 @@
   /* 書き出し時・モーション抑制設定では揺らぎを止め静止画に */
   html.shot .cover-bg,html.shot .cover-sheen{animation:none;}
   @media (prefers-reduced-motion: reduce){.cover-bg,.cover-sheen{animation:none;}}
+
+  /* ===== 写真スライド（森・空などの全面ビジュアル）共通 ===== */
+  .slide.photo{color:#fff;overflow:hidden;}
+  .slide.photo .img-bg{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;
+    transform:scale(1.08);will-change:transform;animation:coverSway 26s ease-in-out infinite alternate;}
+  .slide.photo .img-tint{position:absolute;inset:0;z-index:1;}
+  .slide.photo .img-tint.forest{background:linear-gradient(105deg, rgba(6,33,26,.90) 0%, rgba(10,52,42,.62) 48%, rgba(9,46,55,.40) 100%);}
+  .slide.photo .img-tint.sky{background:linear-gradient(105deg, rgba(13,60,96,.80) 0%, rgba(20,110,150,.46) 50%, rgba(30,130,180,.30) 100%);}
+  .slide.photo > *{position:relative;z-index:2;}
+  .slide.photo .kicker{color:#a9e3cb;}
+  .slide.photo h2{color:#fff;}
+  .slide.photo .lead{color:rgba(255,255,255,.92);}
+  .slide.photo .brandmark{color:#fff;position:absolute;top:5vh;left:8vw;z-index:3;}
+  .slide.photo.active .kicker{animation:fadeUp .9s ease-out both;}
+  .slide.photo.active h2{animation:fadeUp 1.2s cubic-bezier(.2,.6,.2,1) .12s both;}
+  .slide.photo.active .lead{animation:fadeUp 1.2s ease-out .34s both;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(18px);filter:blur(6px);}to{opacity:1;transform:translateY(0);filter:blur(0);}}
+  html.shot .slide.photo .img-bg{animation:none;}
+  html.shot .slide.photo .kicker,html.shot .slide.photo h2,html.shot .slide.photo .lead{animation:none;opacity:1;transform:none;filter:none;}
+  @media (prefers-reduced-motion: reduce){
+    .slide.photo .img-bg{animation:none;}
+    .slide.photo.active .kicker,.slide.photo.active h2,.slide.photo.active .lead{animation:none;}
+  }
   .cover h1{font-size:5.4rem;color:#fff;}
   .cover .kicker{color:#bcd8ff;}
   .cover .sub{font-size:1.5rem;color:#dbeaff;margin-top:2.5vh;font-weight:500;}
@@ -155,11 +178,13 @@
   <section class="slide center">
     <div class="brandmark">VERT BLEU</div>
     <div class="kicker">MISSION</div>
-    <h1>世界を、<br>もっと<span class="accent">オープン</span>に。</h1>
+    <h1>世界を、<br>ちょっと<span class="accent">オープン</span>に。</h1>
   </section>
 
-  <!-- 3. 私たちについて -->
-  <section class="slide center">
+  <!-- 3. 私たちについて（森ビジュアル） -->
+  <section class="slide center photo">
+    <div class="img-bg" style="background-image:url('assets/forest-shrine.jpg')"></div>
+    <div class="img-tint forest"></div>
     <div class="brandmark">VERT BLEU</div>
     <div class="kicker">ABOUT US</div>
     <h2>経営者を、<br>ひとりにしない。</h2>
