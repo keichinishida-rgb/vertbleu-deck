@@ -134,9 +134,10 @@
   .slide.photo.active .kicker{animation:fadeUp .9s ease-out both;}
   .slide.photo.active h2{animation:fadeUp 1.2s cubic-bezier(.2,.6,.2,1) .12s both;}
   .slide.photo.active .lead{animation:fadeUp 1.2s ease-out .34s both;}
+  .slide.photo.active .sub{animation:fadeUp 1.2s ease-out .5s both;}
   @keyframes fadeUp{from{opacity:0;transform:translateY(18px);filter:blur(6px);}to{opacity:1;transform:translateY(0);filter:blur(0);}}
   html.shot .slide.photo .img-bg{animation:none;}
-  html.shot .slide.photo .kicker,html.shot .slide.photo h2,html.shot .slide.photo .lead{animation:none;opacity:1;transform:none;filter:none;}
+  html.shot .slide.photo .kicker,html.shot .slide.photo h2,html.shot .slide.photo .lead,html.shot .slide.photo .sub{animation:none;opacity:1;transform:none;filter:none;}
   @media (prefers-reduced-motion: reduce){
     .slide.photo .img-bg{animation:none;}
     .slide.photo.active .kicker,.slide.photo.active h2,.slide.photo.active .lead{animation:none;}
@@ -277,9 +278,11 @@
   </section>
 
   <!-- 10. CLOSE -->
-  <section class="slide close">
+  <section class="slide close photo">
+    <div class="img-bg" style="background-image:url('assets/sky-heaven.jpg')"></div>
+    <div class="img-tint sky"></div>
     <div class="brandmark">VERT BLEU</div>
-    <div class="kicker" style="color:#6fb0ff;">VERT BLEU</div>
+    <div class="kicker">VERT BLEU</div>
     <h2>これからも、<br>世界を<span class="accent">オープン</span>に。</h2>
     <div class="sub">keichi.nishida@gmail.com　／　keichinishida-rgb.github.io/vertbleu-cc</div>
   </section>
