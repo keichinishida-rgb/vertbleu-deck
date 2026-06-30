@@ -82,13 +82,30 @@
   .bridge li .no{font-size:1.1rem;color:var(--blue);font-weight:800;width:2.4rem;}
 
   /* ===== Cover & close ===== */
-  .cover{
-    background:
-      linear-gradient(115deg, rgba(10,90,115,.88) 0%, rgba(14,146,184,.62) 50%, rgba(29,127,208,.40) 100%),
-      url("assets/niyodo-blue-water.jpg") center/cover no-repeat;
-    color:#fff;justify-content:center;
+  .cover{color:#fff;justify-content:center;overflow:hidden;}
+  .cover-bg{position:absolute;inset:0;z-index:0;
+    background:url("assets/niyodo-blue-water.jpg") center/cover no-repeat;
+    transform:scale(1.08);will-change:transform;
+    animation:coverSway 22s ease-in-out infinite alternate;}
+  .cover-sheen{position:absolute;inset:-15%;z-index:1;pointer-events:none;mix-blend-mode:screen;opacity:0;
+    background:radial-gradient(55% 45% at 50% 45%, rgba(255,255,255,.35), rgba(255,255,255,0) 70%);
+    animation:coverSheen 14s ease-in-out infinite;}
+  .cover-tint{position:absolute;inset:0;z-index:2;
+    background:linear-gradient(115deg, rgba(10,90,115,.88) 0%, rgba(14,146,184,.62) 50%, rgba(29,127,208,.40) 100%);}
+  .cover .kicker,.cover h1,.cover .sub,.cover .tag{position:relative;z-index:3;}
+  .cover .credit{position:absolute;bottom:6vh;right:8vw;font-size:.8rem;color:rgba(255,255,255,.6);letter-spacing:.05em;z-index:3;}
+  @keyframes coverSway{
+    from{transform:scale(1.07) translate(-1%,-0.6%);}
+    to{transform:scale(1.11) translate(1%,0.6%);}
   }
-  .cover .credit{position:absolute;bottom:6vh;right:8vw;font-size:.8rem;color:rgba(255,255,255,.6);letter-spacing:.05em;z-index:10;}
+  @keyframes coverSheen{
+    0%{opacity:0;transform:translate(-5%,2%) scale(1);}
+    50%{opacity:.14;transform:translate(0,-2%) scale(1.05);}
+    100%{opacity:0;transform:translate(5%,2%) scale(1);}
+  }
+  /* 書き出し時・モーション抑制設定では揺らぎを止め静止画に */
+  html.shot .cover-bg,html.shot .cover-sheen{animation:none;}
+  @media (prefers-reduced-motion: reduce){.cover-bg,.cover-sheen{animation:none;}}
   .cover h1{font-size:5.4rem;color:#fff;}
   .cover .kicker{color:#bcd8ff;}
   .cover .sub{font-size:1.5rem;color:#dbeaff;margin-top:2.5vh;font-weight:500;}
@@ -116,6 +133,9 @@
 
   <!-- 1. COVER -->
   <section class="slide cover">
+    <div class="cover-bg"></div>
+    <div class="cover-sheen"></div>
+    <div class="cover-tint"></div>
     <div class="kicker">COMPANY PROFILE</div>
     <h1>ヴェールブルー</h1>
     <div class="sub">経営コンサルティング ｜ 営業・人事・財務・AI</div>
