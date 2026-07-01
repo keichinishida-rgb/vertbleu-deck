@@ -156,10 +156,12 @@
   .slide.photo .accent{color:#74d6e6;}
   .slide.photo .img-tint.forest-deep{background:linear-gradient(180deg, rgba(6,33,26,.80) 0%, rgba(7,28,30,.86) 100%);}
   .slide.photo .img-tint.mist-deep{background:linear-gradient(180deg, rgba(12,18,26,.74) 0%, rgba(9,14,20,.84) 100%);}
-  /* クロージングの空だけ、右から左へ流れ続ける一方向パン（往復しない＝自然は元に戻らない） */
-  .slide.close.photo .img-bg{transform:scale(1.22);animation:skyFlow 21s linear infinite;}
-  @keyframes skyFlow{from{transform:scale(1.22) translateX(6%);}to{transform:scale(1.22) translateX(-6%);}}
-  .slide.close.photo .img-sheen{animation-duration:11s;}
+  /* クロージング: 中央の光へゆっくり寄っていく（＝光に向かう／雲が晴れていく）。一度きりで着地、逆戻りしない。 */
+  .slide.close.photo .img-bg{transform-origin:40% 46%;transform:scale(1.04);
+    animation:skyRise 15s cubic-bezier(.25,.4,.2,1) forwards;}
+  @keyframes skyRise{from{transform:scale(1.04);}to{transform:scale(1.24);}}
+  html.shot .slide.close.photo .img-bg{animation:none;transform:scale(1.12);}
+  @media (prefers-reduced-motion: reduce){.slide.close.photo .img-bg{animation:none;transform:scale(1.1);}}
   .slide.photo .card{border-top-color:#a9e3cb;}
   .slide.photo .card .n{color:#a9e3cb;}
   .slide.photo .card h3{color:#fff;}
@@ -292,8 +294,7 @@
 
   <!-- 10. CLOSE -->
   <section class="slide close photo">
-    <div class="img-bg" style="background-image:url('assets/sky-heaven.jpg')"></div>
-    <div class="img-sheen"></div>
+    <div class="img-bg" style="background-image:url('assets/sky-light.jpg')"></div>
     <div class="img-tint sky"></div>
     <div class="brandmark">VERT BLEU</div>
     <div class="kicker">VERT BLEU</div>
