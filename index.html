@@ -130,6 +130,9 @@
   .slide.photo{color:#fff;overflow:hidden;}
   .slide.photo .img-bg{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;
     transform:scale(1.08);will-change:transform;animation:coverSway 26s ease-in-out infinite alternate;}
+  .slide.photo .img-sheen{position:absolute;inset:-15%;z-index:1;pointer-events:none;mix-blend-mode:screen;opacity:0;
+    background:radial-gradient(55% 45% at 50% 45%, rgba(255,255,255,.32), rgba(255,255,255,0) 70%);
+    animation:coverSheen 14s ease-in-out infinite;}
   .slide.photo .img-tint{position:absolute;inset:0;z-index:1;}
   .slide.photo .img-tint.forest{background:linear-gradient(105deg, rgba(6,33,26,.90) 0%, rgba(10,52,42,.62) 48%, rgba(9,46,55,.40) 100%);}
   .slide.photo .img-tint.sky{background:linear-gradient(105deg, rgba(13,60,96,.80) 0%, rgba(20,110,150,.46) 50%, rgba(30,130,180,.30) 100%);}
@@ -143,10 +146,10 @@
   .slide.photo.active .lead{animation:fadeUp 1.2s ease-out .34s both;}
   .slide.photo.active .sub{animation:fadeUp 1.2s ease-out .5s both;}
   @keyframes fadeUp{from{opacity:0;transform:translateY(18px);filter:blur(6px);}to{opacity:1;transform:translateY(0);filter:blur(0);}}
-  html.shot .slide.photo .img-bg{animation:none;}
+  html.shot .slide.photo .img-bg,html.shot .slide.photo .img-sheen{animation:none;}
   html.shot .slide.photo .kicker,html.shot .slide.photo h2,html.shot .slide.photo .lead,html.shot .slide.photo .sub{animation:none;opacity:1;transform:none;filter:none;}
   @media (prefers-reduced-motion: reduce){
-    .slide.photo .img-bg{animation:none;}
+    .slide.photo .img-bg,.slide.photo .img-sheen{animation:none;}
     .slide.photo.active .kicker,.slide.photo.active h2,.slide.photo.active .lead{animation:none;}
   }
   /* 写真スライド上の アクセント色・カード（指針など）を暗背景用に */
@@ -233,10 +236,8 @@
     </div>
   </section>
 
-  <!-- 6. 私たちの強み（1メッセージ） -->
-  <section class="slide center photo">
-    <div class="img-bg" style="background-image:url('assets/forest-shrine.jpg')"></div>
-    <div class="img-tint forest"></div>
+  <!-- 6. 私たちの強み（1メッセージ・白基調） -->
+  <section class="slide center">
     <div class="brandmark">VERT BLEU</div>
     <div class="kicker">02　私たちの強み</div>
     <h2>経営者を、<br><span class="accent">ボッチにしない。</span></h2>
@@ -287,6 +288,7 @@
   <!-- 10. CLOSE -->
   <section class="slide close photo">
     <div class="img-bg" style="background-image:url('assets/sky-heaven.jpg')"></div>
+    <div class="img-sheen"></div>
     <div class="img-tint sky"></div>
     <div class="brandmark">VERT BLEU</div>
     <div class="kicker">VERT BLEU</div>
