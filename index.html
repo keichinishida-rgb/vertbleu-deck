@@ -106,10 +106,13 @@
   html.shot .cover .wordmark{opacity:1;animation:none;filter:none;transform:none;}
   @media (prefers-reduced-motion: reduce){.cover.active .wordmark{animation:none;}.cover .wordmark{opacity:1;}}
   /* ロゴ完成後: うっすら白文字をぼかして、ゆらゆら揺れる定常モーション（水面の映りのように） */
+  /* ロゴ完成後: うっすら揺れる → やがて波に帰るように、ぼけて溶けて消える（CSSのみ／JSタイマー不要） */
   .cover .wordmark.settled{opacity:.58;filter:blur(2px);
     transition:opacity 1.6s ease, filter 1.6s ease;
-    animation:wordmarkSway 5.5s ease-in-out infinite alternate;}
+    animation:wordmarkSway 5.5s ease-in-out infinite alternate,
+              wordmarkFade 3.8s ease 5.2s forwards;}
   @keyframes wordmarkSway{from{transform:translateY(0) skewX(0deg);}to{transform:translateY(3px) skewX(-1.1deg);}}
+  @keyframes wordmarkFade{from{opacity:.58;filter:blur(2px);}to{opacity:0;filter:blur(18px);}}
   @media (prefers-reduced-motion: reduce){.cover .wordmark.settled{animation:none;}}
   html.shot .cover .wordmark.settled{opacity:1;filter:none;animation:none;transition:none;}
   .cover .credit{position:absolute;bottom:6vh;right:8vw;font-size:.8rem;color:rgba(255,255,255,.6);letter-spacing:.05em;z-index:3;}
@@ -330,14 +333,14 @@
   const pager=document.getElementById('pager');
   const prog=document.getElementById('progress');
   const wm=document.querySelector('.cover .wordmark');
-  // ロゴの登場アニメ(wordmarkReveal)が終わったら、うっすら揺れる状態へ
+  // ロゴ: 登場(wordmarkReveal)が終わったら settled へ（揺れ→やがて波に帰るフェードはCSSで完結）
   if(wm){ wm.addEventListener('animationend',e=>{ if(e.animationName==='wordmarkReveal') wm.classList.add('settled'); }); }
   function show(n){
     i=Math.max(0,Math.min(slides.length-1,n));
     slides.forEach((s,k)=>s.classList.toggle('active',k===i));
     pager.textContent=String(i+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');
     prog.style.width=((i+1)/slides.length*100)+'%';
-    // 表紙に戻ったら一旦リセットして、再び登場→揺れる演出を流す
+    // 表紙に戻ったら一旦リセットして、再び登場→揺れる→消える演出を流す
     if(wm && i===0) wm.classList.remove('settled');
   }
   function next(){show(i+1);} function prev(){show(i-1);}
