@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>株式会社Vert Bleu（ヴェールブルー）</title>
+<meta name="description" content="株式会社ヴェールブルー（VERT BLEU Inc.）。2026年5月22日設立、本店 三重県桑名市。敬天愛人・良心・明珠在掌を基盤に、経営コンサルティング・M&Aを中核として定款第2条に定める14の事業領域を営む法人です。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Serif+JP:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0A2A3A;
+    --ink-soft:#274453;
+    --niyodo-deep:#0E4D5C;
+    --niyodo:#1A8C9E;
+    --niyodo-light:#5FBFC4;
+    --niyodo-pale:#B8E2DD;
+    --vert:#1C6B5A;
+    --pearl:#C2A05E;
+    --paper:#F2F9F8;
+    --paper-warm:#FBFDFC;
+    --line:rgba(10,42,58,.14);
+    --serif-en:"Cormorant Garamond",serif;
+    --serif-jp:"Noto Serif JP",serif;
+    --sans-jp:"Noto Sans JP",sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--sans-jp);
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.85;
+    font-weight:300;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--niyodo-pale);color:var(--ink)}
+
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+
+  /* ---------- header ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:20px 28px;
+    transition:background .5s ease,backdrop-filter .5s ease,padding .4s ease;
+  }
+  header.scrolled{
+    background:rgba(242,249,248,.86);
+    backdrop-filter:blur(12px);
+    padding:14px 28px;
+    border-bottom:1px solid var(--line);
+  }
+  .brandmark{display:flex;align-items:baseline;gap:11px;color:var(--ink);transition:color .5s ease}
+  header.scrolled .brandmark{color:var(--ink)}
+  .brandmark .en{font-family:var(--serif-en);font-size:1.55rem;letter-spacing:.04em;font-weight:500;line-height:1}
+  .brandmark .jp{font-family:var(--serif-jp);font-size:.74rem;letter-spacing:.32em;font-weight:400;opacity:.78}
+  .nav{display:flex;gap:30px}
+  .nav a{
+    font-size:.72rem;letter-spacing:.18em;text-decoration:none;
+    color:var(--ink-soft);font-weight:400;transition:color .5s ease,opacity .25s;
+  }
+  header.scrolled .nav a{color:var(--ink-soft)}
+  .nav a:hover{opacity:.55}
+  @media(max-width:720px){.nav{display:none}}
+
+  /* ---------- hero (fullscreen video) ---------- */
+  .hero{
+    position:relative;height:100vh;min-height:600px;
+    display:flex;flex-direction:column;align-items:center;justify-content:space-between;
+    text-align:center;color:var(--ink);overflow:hidden;
+    background:#F2EEE2;padding:112px 24px 86px;
+  }
+  /* video fills the screen's short edge: full-height on desktop, full-width on mobile */
+  .hero-video{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:min(100vw,100vh);height:min(100vw,100vh);z-index:1;overflow:hidden;
+  }
+  .hero-video video{display:block;width:100%;height:100%;object-fit:cover}
+  .hero::after{
+    content:"";position:absolute;left:0;right:0;bottom:0;height:32vh;z-index:2;
+    background:linear-gradient(to bottom,rgba(14,77,92,0),rgba(14,77,92,.13));
+    pointer-events:none;
+  }
+  .hero-top,.hero-bottom{position:relative;z-index:3}
+  .hero .eyebrow{
+    font-family:var(--serif-jp);font-size:.82rem;letter-spacing:.52em;
+    text-indent:.52em;font-weight:300;color:var(--niyodo-deep);margin:0;
+  }
+  .hero h1{margin:0}
+  .hero h1 .jp{
+    display:block;font-family:var(--serif-jp);font-weight:400;
+    font-size:clamp(1.3rem,3vw,1.8rem);letter-spacing:.28em;
+    text-indent:.28em;line-height:1.5;color:var(--ink);
+  }
+  .hero h1 .en{
+    display:block;font-family:var(--serif-en);font-style:italic;
+    font-size:clamp(.9rem,1.6vw,1.05rem);letter-spacing:.1em;
+    color:var(--niyodo-deep);margin-top:6px;font-weight:400;
+  }
+  .hero .est{
+    margin-top:18px;display:inline-flex;align-items:center;gap:16px;
+    font-size:.74rem;letter-spacing:.24em;font-weight:400;color:var(--ink-soft);
+  }
+  .hero .est::before,.hero .est::after{content:"";width:32px;height:1px;background:var(--line)}
+  /* sound toggle */
+  .soundbtn{
+    position:absolute;right:26px;bottom:28px;z-index:6;
+    display:inline-flex;align-items:center;gap:9px;
+    background:rgba(242,238,226,.66);border:1px solid var(--line);
+    color:var(--ink);font-family:var(--sans-jp);font-size:.72rem;
+    letter-spacing:.12em;font-weight:400;padding:10px 17px;border-radius:40px;
+    cursor:pointer;transition:background .3s ease,border-color .3s ease;backdrop-filter:blur(5px);
+  }
+  .soundbtn:hover{background:rgba(242,238,226,.92)}
+  .soundbtn:focus-visible{outline:2px solid var(--niyodo);outline-offset:2px}
+  .soundbtn svg{width:15px;height:15px;flex:none;stroke:var(--niyodo-deep)}
+  .scrollcue{
+    position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:5;
+    font-size:.6rem;letter-spacing:.32em;color:var(--ink-soft);opacity:.7;
+    writing-mode:vertical-rl;display:flex;flex-direction:column;align-items:center;gap:12px;
+  }
+  .scrollcue span{display:block;width:1px;height:42px;background:linear-gradient(var(--niyodo),transparent);animation:drop 2.4s ease-in-out infinite}
+  @keyframes drop{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+  @media(max-width:720px){
+    .hero{padding:96px 20px 76px}
+    .scrollcue{display:none}
+    .soundbtn{right:50%;transform:translateX(50%);bottom:22px;font-size:.68rem;padding:9px 14px}
+    .hero h1 .jp{letter-spacing:.2em}
+  }
+
+  /* ---------- section base ---------- */
+  section.block{padding:120px 0}
+  .seclabel{
+    font-size:.68rem;letter-spacing:.34em;color:var(--niyodo);
+    font-weight:500;margin-bottom:22px;display:flex;align-items:center;gap:14px;
+  }
+  .seclabel::before{content:"";width:26px;height:1px;background:var(--niyodo)}
+  .sectitle{
+    font-family:var(--serif-jp);font-weight:400;
+    font-size:clamp(1.7rem,4vw,2.5rem);line-height:1.5;
+    letter-spacing:.04em;margin-bottom:14px;
+  }
+
+  /* ---------- philosophy ---------- */
+  .philo{background:var(--paper-warm);position:relative}
+  .philo .intro{max-width:34em;font-size:1.02rem;color:var(--ink-soft);margin-bottom:74px}
+  .tenets{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line)}
+  .tenet{padding:48px 34px 44px;border-bottom:1px solid var(--line)}
+  .tenet:not(:last-child){border-right:1px solid var(--line)}
+  .tenet .kanji{
+    font-family:var(--serif-jp);font-weight:500;
+    font-size:2.1rem;letter-spacing:.18em;color:var(--niyodo-deep);
+    margin-bottom:8px;
+  }
+  .tenet .roma{font-family:var(--serif-en);font-style:italic;font-size:.92rem;color:var(--pearl);margin-bottom:20px;letter-spacing:.04em}
+  .tenet p{font-size:.92rem;color:var(--ink-soft);line-height:2.05}
+  @media(max-width:720px){
+    .tenets{grid-template-columns:1fr}
+    .tenet:not(:last-child){border-right:none}
+  }
+
+  /* ---------- meaning band ---------- */
+  .band{
+    background:linear-gradient(120deg,#0E4D5C,#1A8C9E);
+    color:#fff;padding:108px 0;text-align:center;position:relative;overflow:hidden;
+  }
+  .band svg.water{position:absolute;inset:0;width:100%;height:100%;opacity:.4}
+  .band .inner{position:relative;z-index:2;max-width:42em;margin:0 auto}
+  .band .name-en{font-family:var(--serif-en);font-size:clamp(2rem,5vw,3rem);letter-spacing:.04em;margin-bottom:10px;font-weight:500}
+  .band .name-tr{font-size:.74rem;letter-spacing:.34em;opacity:.8;margin-bottom:36px}
+  .band p{font-family:var(--serif-jp);font-weight:300;font-size:clamp(1rem,2vw,1.18rem);line-height:2.3;opacity:.96}
+
+  /* ---------- business ---------- */
+  .biz .intro{max-width:34em;font-size:1.02rem;color:var(--ink-soft);margin-bottom:64px}
+  .bizgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+  .biz-item{
+    background:var(--paper);padding:34px 26px;min-height:148px;
+    display:flex;flex-direction:column;justify-content:space-between;
+    transition:background .35s ease,transform .35s ease;
+  }
+  .biz-item:hover{background:var(--paper-warm)}
+  .biz-item .no{font-family:var(--serif-en);font-size:.86rem;color:var(--niyodo-light);letter-spacing:.08em}
+  .biz-item .ja{font-family:var(--serif-jp);font-size:1.18rem;font-weight:500;color:var(--ink);margin-top:auto;letter-spacing:.04em}
+  .biz-item .en{font-size:.68rem;letter-spacing:.12em;color:var(--ink-soft);opacity:.6;margin-top:7px;text-transform:uppercase}
+  @media(max-width:860px){.bizgrid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.bizgrid{grid-template-columns:1fr}.biz-item{min-height:auto}}
+  .biz-note{margin-top:24px;font-size:.78rem;color:var(--ink-soft);opacity:.7}
+  .biz-formal{margin-top:60px;border-top:1px solid var(--ink);padding-top:38px}
+  .biz-formal h3{font-family:var(--serif-jp);font-size:1.05rem;font-weight:500;letter-spacing:.1em;color:var(--niyodo-deep);margin-bottom:4px}
+  .biz-formal .src{font-size:.72rem;letter-spacing:.14em;color:var(--ink-soft);opacity:.75;margin-bottom:28px}
+  .biz-formal ol{list-style:none;counter-reset:mk;display:grid;grid-template-columns:1fr 1fr;gap:13px 44px}
+  .biz-formal li{counter-increment:mk;font-size:.84rem;line-height:1.8;color:var(--ink-soft);padding-left:28px;position:relative;font-weight:300}
+  .biz-formal li::before{content:counter(mk);position:absolute;left:0;top:1px;font-family:var(--serif-en);font-size:.82rem;font-style:italic;color:var(--niyodo)}
+  @media(max-width:680px){.biz-formal ol{grid-template-columns:1fr;gap:12px}}
+
+  /* ---------- profile ---------- */
+  .profile{background:var(--paper-warm)}
+  .ptable{border-top:1px solid var(--ink)}
+  .prow{display:grid;grid-template-columns:230px 1fr;border-bottom:1px solid var(--line);padding:24px 4px}
+  .prow dt{font-size:.82rem;letter-spacing:.14em;color:var(--niyodo-deep);font-weight:500;padding-top:2px}
+  .prow dd{font-size:.96rem;color:var(--ink);font-weight:300}
+  .prow dd .sub{display:block;font-size:.82rem;color:var(--ink-soft);opacity:.8;margin-top:5px}
+  .fill{
+    background:rgba(194,160,94,.14);color:#8a6b2c;
+    padding:1px 9px;border-radius:2px;font-size:.86rem;
+    border:1px dashed rgba(194,160,94,.6);font-weight:400;
+  }
+  @media(max-width:640px){.prow{grid-template-columns:1fr;gap:6px}.prow dt{padding-top:0}}
+
+  /* ---------- footer ---------- */
+  footer{background:var(--ink);color:rgba(255,255,255,.82);padding:84px 0 40px}
+  .foot-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:48px;padding-bottom:56px;border-bottom:1px solid rgba(255,255,255,.14)}
+  .foot-brand .en{font-family:var(--serif-en);font-size:2rem;font-weight:500;letter-spacing:.03em;color:#fff}
+  .foot-brand .jp{font-family:var(--serif-jp);font-size:.76rem;letter-spacing:.3em;opacity:.7;margin-top:8px}
+  .foot-locs{display:flex;gap:64px;flex-wrap:wrap}
+  .loc h4{font-size:.7rem;letter-spacing:.26em;color:var(--niyodo-light);margin-bottom:14px;font-weight:500}
+  .loc p{font-size:.86rem;font-weight:300;line-height:1.9;opacity:.86}
+  .foot-bot{padding-top:30px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:.72rem;letter-spacing:.06em;opacity:.6}
+  .foot-bot .en{font-family:var(--serif-en);letter-spacing:.08em}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity 1.1s ease,transform 1.1s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+    .reveal{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header id="hd">
+  <div class="brandmark">
+    <span class="en">Vert Bleu</span>
+    <span class="jp">ヴェールブルー</span>
+  </div>
+  <nav class="nav">
+    <a href="#philosophy">理念</a>
+    <a href="#business">事業領域</a>
+    <a href="#profile">会社概要</a>
+    <a href="#contact">拠点</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-video">
+    <video id="heroVideo" autoplay muted loop playsinline poster="vertbleu-logo-poster.jpg" aria-label="Vert Bleu ロゴアニメーション">
+      <source src="vertbleu-logo.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <div class="hero-top">
+    <p class="eyebrow">仁 淀 ブ ル ー</p>
+  </div>
+
+  <div class="hero-bottom">
+    <h1>
+      <span class="jp">株式会社ヴェールブルー</span>
+      <span class="en">VERT BLEU Inc.</span>
+    </h1>
+    <p class="est">2026 . 05 . 22 設立 ｜ 本店 三重県桑名市</p>
+  </div>
+
+  <button class="soundbtn" id="soundBtn" aria-pressed="false">
+    <svg id="soundIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M11 5 6 9H2v6h4l5 4V5z"/>
+      <path class="wave" d="M15.5 8.5a5 5 0 0 1 0 7M19 5a9 9 0 0 1 0 14" opacity=".3"/>
+    </svg>
+    <span id="soundLabel">音を出す</span>
+  </button>
+  <div class="scrollcue">SCROLL<span></span></div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="block philo" id="philosophy">
+  <div class="wrap">
+    <p class="seclabel reveal">PHILOSOPHY</p>
+    <h2 class="sectitle reveal">事業のかたちが変わっても、<br>変わらないものを真ん中に置く。</h2>
+    <p class="intro reveal">Vert Bleuは、領域の異なる複数の事業を一つの法人として営みます。何をするかは時代とともに移ろいますが、なぜ・どのようにするかは、次の三つの言葉に拠（よ）ります。</p>
+    <div class="tenets reveal">
+      <div class="tenet">
+        <div class="kanji">敬天愛人</div>
+        <div class="roma">Keiten Aijin</div>
+        <p>天を敬い、人を愛する。私心を離れ、関わる人とその先にある社会のために働くことを、判断のいちばん上に置きます。</p>
+      </div>
+      <div class="tenet">
+        <div class="kanji">良 心</div>
+        <div class="roma">Conscience</div>
+        <p>誰も見ていないところでこそ、心に背かない。短期の損得ではなく、長く誠実であることを事業の信用の源とします。</p>
+      </div>
+      <div class="tenet">
+        <div class="kanji">明珠在掌</div>
+        <div class="roma">Meiju Zaishō</div>
+        <p>明（あき）らかな珠は、すでに掌（てのひら）の中にある。価値は外に求めるのではなく、いま手にしているものの中に見いだします。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NAME MEANING BAND -->
+<section class="band">
+  <svg class="water" viewBox="0 0 1440 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs><filter id="rip2"><feTurbulence type="fractalNoise" baseFrequency="0.006 0.014" numOctaves="2" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="30"/></filter></defs>
+    <g filter="url(#rip2)" stroke="rgba(255,255,255,.4)" fill="none" stroke-width="1">
+      <path d="M-50 250 Q360 210 720 260 T1490 240"/>
+      <path d="M-50 310 Q360 270 720 320 T1490 300"/>
+      <path d="M-50 370 Q360 330 720 380 T1490 360"/>
+    </g>
+  </svg>
+  <div class="wrap inner">
+    <div class="name-en">Vert · Bleu</div>
+    <div class="name-tr">緑（VERT） と 青（BLEU）— フランス語</div>
+    <p>社名は、高知・仁淀川（によどがわ）が見せる「仁淀ブルー」に由来します。陽の角度と水の深さで、緑にも青にも移ろう透明な水。固定された一色ではなく、状況に応じて姿を変えながらも、底に澄んだ一貫性を湛（たた）える——その在り方を、私たちの社名に重ねました。</p>
+  </div>
+</section>
+
+<!-- BUSINESS -->
+<section class="block biz" id="business">
+  <div class="wrap">
+    <p class="seclabel reveal">BUSINESS DOMAINS</p>
+    <h2 class="sectitle reveal">定款に定める事業領域</h2>
+    <p class="intro reveal">経営コンサルティングとM&Aを中核に、不動産、教育・eスポーツ、デジタルコンテンツ、文化・芸術、飲食、地域創生、金融まで。定款第2条に定める14の事業領域を、人と地域の暮らしに連なる仕事として横断的に営みます。</p>
+    <div class="bizgrid reveal">
+      <div class="biz-item"><span class="no">01</span><div><span class="ja">経営コンサル・M&A</span><span class="en">Consulting & M&A</span></div></div>
+      <div class="biz-item"><span class="no">02</span><div><span class="ja">不動産・投資コンサル</span><span class="en">Real Estate</span></div></div>
+      <div class="biz-item"><span class="no">03</span><div><span class="ja">研修・セミナー・出版</span><span class="en">Seminars & Publishing</span></div></div>
+      <div class="biz-item"><span class="no">04</span><div><span class="ja">デジタルコンテンツ・SNS</span><span class="en">Digital Content</span></div></div>
+      <div class="biz-item"><span class="no">05</span><div><span class="ja">Web・システム開発</span><span class="en">Web & Systems</span></div></div>
+      <div class="biz-item"><span class="no">06</span><div><span class="ja">教育・eスポーツ教室</span><span class="en">Education & eSports</span></div></div>
+      <div class="biz-item"><span class="no">07</span><div><span class="ja">eスポーツ選手育成</span><span class="en">eSports Management</span></div></div>
+      <div class="biz-item"><span class="no">08</span><div><span class="ja">イベント企画・運営</span><span class="en">Events</span></div></div>
+      <div class="biz-item"><span class="no">09</span><div><span class="ja">食品開発コンサル</span><span class="en">Food Development</span></div></div>
+      <div class="biz-item"><span class="no">10</span><div><span class="ja">飲食店経営・食品販売</span><span class="en">Food & Beverage</span></div></div>
+      <div class="biz-item"><span class="no">11</span><div><span class="ja">アート・工芸・アパレル</span><span class="en">Art, Craft & Apparel</span></div></div>
+      <div class="biz-item"><span class="no">12</span><div><span class="ja">地域創生・環境保全</span><span class="en">Regional & Environment</span></div></div>
+      <div class="biz-item"><span class="no">13</span><div><span class="ja">金融商品仲介・投資運用</span><span class="en">Finance & Investment</span></div></div>
+      <div class="biz-item"><span class="no">14</span><div><span class="ja">附帯関連事業</span><span class="en">Related Operations</span></div></div>
+    </div>
+
+    <div class="biz-formal reveal">
+      <h3>事業の目的</h3>
+      <p class="src">定款 第2条 — 全14号</p>
+      <ol>
+        <li>経営コンサルティング業務並びに企業の合併買収、資本参加及び業務提携に関する仲介、斡旋、アドバイザリー業務</li>
+        <li>不動産の所有、利用、売買、賃貸、仲介、管理及び不動産投資に関するコンサルティング業務</li>
+        <li>セミナー、講演会、研修及びワークショップの企画、運営、実施並びに電子書籍等出版物の企画、執筆、制作及び出版業</li>
+        <li>動画、画像、音声等のデジタルコンテンツの企画、制作、編集及び販売並びにSNSの運用代行、コンサルティング業務</li>
+        <li>ウェブサイト及びコンピューターシステムの企画、設計、開発、運用及び保守</li>
+        <li>教育関連・eスポーツに関する教室運営、コンサルティング業務</li>
+        <li>eスポーツ選手等の育成、マネジメント及びエージェント業務</li>
+        <li>各種イベントの企画、制作及び運営</li>
+        <li>和洋菓子等食料品に関する商品開発及びコンサルティング業務</li>
+        <li>飲食店の経営及び食料品の販売</li>
+        <li>美術品、工芸品、インテリア用品、アパレル等の企画、制作、受託販売、賃貸、管理、輸出入並びに芸術家のマネジメント及びプロモーション業務</li>
+        <li>地域活性化、地方創生及び環境保全に関する事業の企画、運営、支援並びに地域産品の開発、販売</li>
+        <li>金融商品仲介業及び投資コンサルティング業務並びに有価証券の保有、管理及び運用</li>
+        <li>前各号に附帯関連する一切の事業</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- PROFILE -->
+<section class="block profile" id="profile">
+  <div class="wrap">
+    <p class="seclabel reveal">CORPORATE PROFILE</p>
+    <h2 class="sectitle reveal">会社概要</h2>
+    <dl class="ptable reveal">
+      <div class="prow"><dt>商号</dt><dd>株式会社ヴェールブルー<span class="sub">VERT BLEU Inc.</span></dd></div>
+      <div class="prow"><dt>設立年月日</dt><dd>2026年（令和8年）5月22日</dd></div>
+      <div class="prow"><dt>代表者</dt><dd>代表取締役　西田 敬一</dd></div>
+      <div class="prow"><dt>資本金</dt><dd>3,000,000円</dd></div>
+      <div class="prow"><dt>法人番号</dt><dd>1900-01-033158<span class="sub">登記事項に基づく番号 ※形式は下記注記参照</span></dd></div>
+      <div class="prow"><dt>本店所在地</dt><dd>三重県桑名市大谷田</dd></div>
+      <div class="prow"><dt>事業内容</dt><dd>経営コンサルティング・M&A、不動産、研修・出版、デジタルコンテンツ、Web・システム開発、教育・eスポーツ、イベント、食品開発、飲食、アート・工芸、地域創生・環境保全、金融商品仲介・投資運用 ほか<span class="sub">定款 第2条に定める全14号のとおり（上記「事業領域」に全文掲載）</span></dd></div>
+      <div class="prow"><dt>発行可能株式総数</dt><dd>10,000株</dd></div>
+      <div class="prow"><dt>公告方法</dt><dd>官報に掲載する</dd></div>
+      <div class="prow"><dt>決算期</dt><dd>4月末日<span class="sub">初回決算 2027年4月末</span></dd></div>
+      <div class="prow"><dt>連絡先</dt><dd>090-1709-8144</dd></div>
+      <div class="prow"><dt>取引銀行</dt><dd>桑名三重信用金庫</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="en">Vert Bleu</div>
+        <div class="jp">株式会社ヴェールブルー</div>
+      </div>
+      <div class="foot-locs">
+        <div class="loc">
+          <h4>本店 ｜ MIE</h4>
+          <p>三重県桑名市大谷田</p>
+        </div>
+        <div class="loc">
+          <h4>CONTACT</h4>
+          <p>Tel. 090-1709-8144</p>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© 2026 VERT BLEU Inc. All rights reserved.</span>
+      <span class="en">Established May 22, 2026</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // header state
+  const hd=document.getElementById('hd');
+  const onScroll=()=>{hd.classList.toggle('scrolled',window.scrollY>40)};
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  // reveal on scroll
+  const io=new IntersectionObserver((es)=>{
+    es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})
+  },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // sound toggle — browsers require a user gesture before audio can play
+  const v=document.getElementById('heroVideo');
+  const btn=document.getElementById('soundBtn');
+  const label=document.getElementById('soundLabel');
+  const wave=document.querySelector('#soundIcon .wave');
+  btn.addEventListener('click',()=>{
+    v.muted=!v.muted;
+    if(!v.muted){v.play().catch(()=>{});}
+    const on=!v.muted;
+    btn.setAttribute('aria-pressed',String(on));
+    label.textContent=on?'音を消す':'音を出す';
+    wave.setAttribute('opacity',on?'1':'0.3');
+  });
+</script>
+</body>
+</html>
